@@ -3,7 +3,6 @@ package com.example.demo.web;
 import com.example.demo.services.HelloService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -17,21 +16,13 @@ public class MyController {
         this.helloService = helloService;
     }
 
-
-    @GetMapping
-    public String hello() {
-        return "hello";
-    }
-
-    @PostMapping
-    @RequestMapping("/hello")
+    @PostMapping("/hello")
     public String sayHello(String name) {
         helloService.addName(name);
         return name;
     }
 
-    @GetMapping
-    @RequestMapping("/list")
+    @GetMapping("/list")
     public List<String> getNames() {
         return helloService.getNames();
     }

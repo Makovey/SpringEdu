@@ -2,53 +2,52 @@ package com.example.demo.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.restdocs.JUnitRestDocumentation;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.restdocs.RestDocumentationContextProvider;
+import org.springframework.restdocs.RestDocumentationExtension;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.ConfigurableMockMvcBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
 @SpringBootTest
-@RunWith(SpringRunner.class)
-public class MyControllerTest {
+class MyControllerTest {
 
     MockMvc mockMvc;
 
     @Autowired
-    WebApplicationContext webApplicationContext;
-
-    @Rule
-    public JUnitRestDocumentation restDocumentation = new JUnitRestDocumentation("target/generated-snippets");
-
-    @Autowired
     ObjectMapper mapper;
 
-    @Before
-    public void setUp() {
-        ConfigurableMockMvcBuilder builder =
-                MockMvcBuilders
-                        .webAppContextSetup(this.webApplicationContext)
-                        .apply(documentationConfiguration(this.restDocumentation));
-        this.mockMvc = builder.build();
+    @BeforeEach
+    public void setUp(WebApplicationContext wac, RestDocumentationContextProvider rdcp) {
+        mockMvc = MockMvcBuilders
+                .webAppContextSetup(wac)
+                .apply(documentationConfiguration(rdcp))
+                .build();
     }
 
     @Test
     @SneakyThrows
-    public void sayHello() {
+    void sayHello() {
         String url = "/hello";
-        mockMvc.perform(post(url).contentType(MediaType.APPLICATION_JSON).content("body")).andExpect(status().isOk()).andDo(document(url));
+        mockMvc.perform(post(url)).andExpect(status().isOk()).andDo(document(url));
+    }
+
+    @Test
+    @SneakyThrows
+    void sayHelloz() {
+        String url = "/list";
+        mockMvc.perform(get(url)).andExpect(status().isOk()).andDo(document(url));
     }
 }
