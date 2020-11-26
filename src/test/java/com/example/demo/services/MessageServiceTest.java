@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.db.repo.UserRepo;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,9 @@ class MessageServiceTest {
 
     @Autowired
     MessageService messageService;
+
+    @Autowired
+    UserRepo userRepo;
 
     private List<String> messages;
 
@@ -37,6 +41,7 @@ class MessageServiceTest {
 
     @Test
     void addMessage() {
+        System.out.println(userRepo.findAll());
         assertTrue(messageService.getMessages().values().containsAll(messages));
         assertNotNull(messageService.getMessages());
     }

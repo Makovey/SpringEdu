@@ -1,0 +1,26 @@
+spring:
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+
+    database: mysql
+    show-sql: true
+    hibernate:
+      dialect: org.hibernate.dialect.MyS
+      ddl-auto: create-drop
+  #  datasource:
+  #    platform: postgres
+  #    url: jdbc:postgresql://localhost:5432/mydb
+  #    username: postgres
+  #    password: toor
+  #    driverClassName: org.postgresql.Driver
+
+
+datasource:
+  url: jdbc:mysql://localhost:3306/test?useUnicode=true&serverTimezone=UTC
+  username: root
+  password: ${password}
+  driver-class-name: com.mysql.cj.jdbc.Driver
+
