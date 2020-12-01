@@ -1,6 +1,6 @@
 package com.example.demo.services;
 
-import com.example.demo.db.repo.UserRepo;
+import com.example.demo.db.repo.MessageRepo;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,7 +20,7 @@ class MessageServiceTest {
     MessageService messageService;
 
     @Autowired
-    UserRepo userRepo;
+    MessageRepo messageRepo;
 
     private List<String> messages;
 
@@ -41,7 +41,7 @@ class MessageServiceTest {
 
     @Test
     void addMessage() {
-        System.out.println(userRepo.findAll());
+        System.out.println(messageRepo.findAll());
         assertTrue(messageService.getMessages().values().containsAll(messages));
         assertNotNull(messageService.getMessages());
     }

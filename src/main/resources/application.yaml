@@ -2,25 +2,23 @@ spring:
   jpa:
     properties:
       hibernate:
+        default_schema: public
         jdbc:
           time_zone: UTC
 
-    database: mysql
+    database: POSTGRESQL
     show-sql: true
+    generate-ddl: true
+
+
     hibernate:
-      dialect: org.hibernate.dialect.MyS
+      dialect: org.hibernate.dialect.PostgreSQLDialect
       ddl-auto: create-drop
-  #  datasource:
-  #    platform: postgres
-  #    url: jdbc:postgresql://localhost:5432/mydb
-  #    username: postgres
-  #    password: toor
-  #    driverClassName: org.postgresql.Driver
 
 
-datasource:
-  url: jdbc:mysql://localhost:3306/test?useUnicode=true&serverTimezone=UTC
-  username: root
-  password: ${password}
-  driver-class-name: com.mysql.cj.jdbc.Driver
+  datasource:
+    url: jdbc:postgresql://localhost:5432/prod
+    username: postgres
+    password: toor
+    driver-class-name: org.postgresql.Driver
 

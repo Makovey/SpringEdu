@@ -1,12 +1,17 @@
 spring:
   datasource:
     url: jdbc:h2:mem:testdb
-    driverClassName: org.h2.Driver
     username: sa
     password: password
+    driver-class-name: org.h2.Driver
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
 
-  flyway:
-    baselineOnMigrate: true
-    locations: filesystem:db/migration
+#  flyway:
+#    locations: classpath:db/migration
+#    baseline-on-migrate: true
+#
+#flyway:
+#  url: jdbc:postgresql://localhost:5433/test
+#  user: postgres
+#  password: toor

@@ -1,0 +1,1 @@
+-- INSERT INTO public.message (text, creataedAt) VALUES ()

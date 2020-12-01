@@ -1,30 +1,22 @@
 package com.example.demo.db.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-
 @Entity
-@Table(name = "user")
-@Getter
-@Setter
+@Table(name = "users")
+@Data
+@NoArgsConstructor
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Column(name = "name")
     private String name;
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
+    private String password;
+
 }
